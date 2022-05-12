@@ -10,6 +10,10 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# Intellij
+.idea/
+IceBreaker_BoardGame.iml
+
 # Package Files #
 *.jar
 *.war
