@@ -1,0 +1,17 @@
+Make a game logic that works:
+    ☐ Create a java class for the game
+    ☐ Store game iceberg tiles in 2D list
+    ☐ Store boat positions for both players
+
+    Providide possible moves for our player:
+        ☐ Store if we are black or red
+        ☐ Simple answer based on nearby icebergs
+        ☐ Complex answer based on nearby icebergs and boat positions path finding
+
+Create an AI that will play the game:
+    ☐ Level up on AI knowledge
+    ☐ Improvise adapt overcome
+
+
+
+
