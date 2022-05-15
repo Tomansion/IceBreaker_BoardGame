@@ -12,8 +12,9 @@ public class GameInterface {
 
 
     boolean move(String player, String move) {
-        int[] origin = stringToCoord(move.charAt(0) + move.charAt(1) + "");
-        int[] dest = stringToCoord(move.charAt(3) + move.charAt(4) + "");
+        String[] moveArray = move.split("-");
+        int[] origin = stringToCoord(moveArray[0]);
+        int[] dest = stringToCoord(moveArray[1]);
 
         if (!player.equals(_currentPlayer)) {
             System.out.println("It is not " + player + "'s turn.");
@@ -44,7 +45,7 @@ public class GameInterface {
      * @param y y coordinate
      * @return 'A1'
      */
-    String coordToString(int x, int y) {
+    public String coordToString(int x, int y) {
         return (char) (y + 'A') + "" + (x + 1);
     }
 
@@ -52,8 +53,8 @@ public class GameInterface {
      * @param move 'A1'
      * @return [x, y]
      */
-    int[] stringToCoord(String move) {
-        return new int[]{move.charAt(0) - 'A', move.charAt(1) - '1' + 1};
+    public int[] stringToCoord(String move) {
+        return new int[]{move.charAt(0) - 'A', move.charAt(1) - '1'};
     }
 
     int getScore(String player) {
