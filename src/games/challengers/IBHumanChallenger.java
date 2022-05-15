@@ -1,4 +1,4 @@
-package games.icebreaker;
+package games.challengers;
 
 import java.util.Scanner;
 import java.util.Set;
@@ -11,64 +11,69 @@ public class IBHumanChallenger implements IChallenger {
         name = "Human";
     }
 
-    @Override
+    // @Override
     public String teamName() {
         return name;
     }
 
-    @Override
+    // @Override
     public void setRole(String role) {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
+    // @Override
     public void iPlay(String move) {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
+    // @Override
     public void otherPlay(String move) {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
+    // @Override
     public String bestMove() {
         System.out.println("Entrer un coup :");
-        String entreeClavier = new Scanner(System.in).nextLine();
+        Scanner sc = new Scanner(System.in);
+        String entreeClavier = sc.nextLine();
+
+        // Close the scanner
+        sc.close();
+
         return entreeClavier;
     }
 
-    @Override
+    // @Override
     public String victory() {
         return "Youpi !";
     }
 
-    @Override
+    // @Override
     public String defeat() {
         return "Snif...";
     }
 
-    @Override
+    // @Override
     public String tie() {
         return "Ouf !";
     }
 
-    @Override
+    // @Override
     public String boardToString() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
+    // @Override
     public void setBoardFromFile(String fileName) {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
+    // @Override
     public Set<String> possibleMoves(String role) {
         // TODO Auto-generated method stub
         return null;

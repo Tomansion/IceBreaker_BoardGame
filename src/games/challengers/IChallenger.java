@@ -1,4 +1,4 @@
-package games.icebreaker;
+package games.challengers;
 
 import java.util.Set;
 
