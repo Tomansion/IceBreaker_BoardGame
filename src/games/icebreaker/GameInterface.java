@@ -12,11 +12,27 @@ public class GameInterface {
 
 
     boolean move(String player, String move) {
-        int origin[] = stringToCoord(move.charAt(0) + move.charAt(1) + "");
-        int dest[] = stringToCoord(move.charAt(3) + move.charAt(4) + "");
+        int[] origin = stringToCoord(move.charAt(0) + move.charAt(1) + "");
+        int[] dest = stringToCoord(move.charAt(3) + move.charAt(4) + "");
+
         if (!player.equals(_currentPlayer)) {
             System.out.println("It is not " + player + "'s turn.");
             return false;
+        }
+        if (_currentPlayer.equals("red")) {
+            for(int i = 0; i < 3; i++) {
+                if(red._boats[i] == origin) {
+                    red._boats[i] = dest;
+                    break;
+                }
+            }
+        } else {
+            for(int i = 0; i < 3; i++) {
+                if(black._boats[i] == origin) {
+                    black._boats[i] = dest;
+                    break;
+                }
+            }
         }
         
         _currentPlayer = (_currentPlayer.equals("red")) ? "black" : "red";
@@ -41,7 +57,7 @@ public class GameInterface {
     }
 
     int getScore(String player) {
-        return 0;
+        return player.equals("red") ? red._score : black._score;
     }
 
     Set<String> possibleMoves(String player) {
