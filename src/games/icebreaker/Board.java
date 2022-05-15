@@ -1,5 +1,7 @@
 package games.icebreaker;
 
+import java.util.Set;
+
 public class Board {
     private int[][] _board;
     private int _size;
@@ -41,4 +43,84 @@ public class Board {
             }
         }
     }
+
+    private int[][] getOffsets(int x, int y) {
+        //
+        //   Top (y < _size - 1) :
+        //       [-1,-1]  [0,-1]
+        //                 -
+        //  [-1, 0]  [TARGET]  [1, 0]
+        //          -
+        //       [0, 1]  [1, 1]
+        //
+        //
+        //   Mid (y == _size - 1) :
+        //       [-1,-1]  [0,-1]
+        //                -
+        //  [-1, 0]  [TARGET]  [1, 0]
+        //                -
+        //       [-1, 1]  [0, 1]
+        //
+        //
+        //   Bot (y > _size - 1):
+        //       [0,-1]  [1,-1]
+        //          -
+        //  [-1, 0]  [TARGET]  [1, 0]
+        //                -
+        //       [-1, 1]  [0, 1]
+        //
+
+        if (outOfBound(x, y)) {
+            System.out.println("Coordinates out of bound");
+            return null;
+        }
+
+        if (y <  _size - 1) {
+            return new int[][] {
+                {-1, -1},
+                {0, -1},
+                {1, 0},
+                {1, 1},
+                {0, 1},
+                {-1,0},
+            };
+        } else if (y == _size - 1) {
+            return new int[][] {
+                {-1, -1},
+                {0, -1},
+                {1, 0},
+                {0, 1},
+                {-1, 1},
+                {-1, 0},
+            };
+        } else {
+            return new int[][] {
+                {0, -1},
+                {1, -1},
+                {1, 0},
+                {0, 1},
+                {-1, 1},
+                {-1, 0},
+            };
+        }
+    };
+
+    public Set<int[]> getNeighbors(int x, int y) {
+        Set<int[]> neighbors = new java.util.HashSet<int[]>();
+
+        int[][] offsets = getOffsets(x, y);
+        for(int[] offset : offsets) {
+            int neighborX = x + offset[0];
+            int neighborY = y + offset[1];
+
+            if(!outOfBound(neighborX, neighborY)) {
+                neighbors.add(new int[] {neighborX, neighborY});
+            }
+        }
+        return neighbors;
+    }
+    // Possible moves
+    // Return a set of coordinates (x, y) int
+    // From a boat position and a player color
+    // public
 }
