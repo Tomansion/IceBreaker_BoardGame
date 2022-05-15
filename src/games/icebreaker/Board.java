@@ -40,5 +40,9 @@ public class Board {
                 }
             }
         }
+        int[][] boats = {{0, 0}, {2 * (_size - 1), _size - 1}, {0, 2 * (_size - 1)}, {_size - 1, 0}, {0, _size - 1}, {_size - 1, 2 * (_size - 1)}};
+        for(int[] boat : boats) {
+            _board[boat[1]][boat[0]] = 0;
+        }
     }
 }

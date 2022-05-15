@@ -5,9 +5,9 @@ import java.util.Set;
 public class GameInterface {
     public static int SIZE = 5;
 
-    private Player red = new Player("red", SIZE);
-    private Player black = new Player("black", SIZE);
-    private Board board = new Board(SIZE);
+    private final Player _red = new Player("red", SIZE);
+    private final Player _black = new Player("black", SIZE);
+    private final Board _board = new Board(SIZE);
     private String _currentPlayer = "red";
 
 
@@ -20,17 +20,18 @@ public class GameInterface {
             System.out.println("It is not " + player + "'s turn.");
             return false;
         }
+        _board.set(origin[0], origin[1], 0);
         if (_currentPlayer.equals("red")) {
             for(int i = 0; i < 3; i++) {
-                if(red._boats[i] == origin) {
-                    red._boats[i] = dest;
+                if(_red._boats[i] == origin) {
+                    _red._boats[i] = dest;
                     break;
                 }
             }
         } else {
             for(int i = 0; i < 3; i++) {
-                if(black._boats[i] == origin) {
-                    black._boats[i] = dest;
+                if(_black._boats[i] == origin) {
+                    _black._boats[i] = dest;
                     break;
                 }
             }
@@ -58,7 +59,7 @@ public class GameInterface {
     }
 
     int getScore(String player) {
-        return player.equals("red") ? red._score : black._score;
+        return player.equals("red") ? _red._score : _black._score;
     }
 
     Set<String> possibleMoves(String player) {
