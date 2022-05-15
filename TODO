@@ -1,16 +1,20 @@
 Make a game logic that works:
-    ☐ Create a java class for the game
-    ☐ Store game iceberg tiles in 2D list
-    ☐ Store boat positions for both players
+    ✔ Create a java class for the game @done(22-05-15 17:00)
+    ✔ Store game iceberg tiles in 2D list @done(22-05-15 17:00)
+    ✔ Store boat positions for both players @done(22-05-15 17:50)
 
     Providide possible moves for our player:
-        ☐ Store if we are black or red
-        ☐ Simple answer based on nearby icebergs
-        ☐ Complex answer based on nearby icebergs and boat positions path finding
+        ✔ Store if we are black or red @done(22-05-15 17:50)
+        ✔ Simple answer based on nearby icebergs @done(22-05-15 17:00)
+        ✔ Complex answer based on nearby icebergs and boat positions path finding @done(22-05-15 17:00)
+
+    ✔ Random players can play the game @done(22-05-15 17:50)
+    ☐ Test game with random mvmnt and arbitre
 
 Create an AI that will play the game:
     ☐ Level up on AI knowledge
     ☐ Improvise adapt overcome
+    ☐ Run AI with arbitre
 
 
 
