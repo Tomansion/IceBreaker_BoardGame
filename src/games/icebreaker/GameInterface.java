@@ -92,7 +92,7 @@ public class GameInterface {
     // Return a set of coordinates from a boat position
     private Set<int[]> _getPossibleMoves(int x, int y) {
         Set<int[]> possibleMoves = new java.util.HashSet<int[]>();
-        Set<int[]> neighbors = _board.getNeighbors(x, y);
+        int[][] neighbors = _board.getNeighbors(x, y);
 
         for(int[] neighbor : neighbors) {
             // If the neighbor is iceberg, it is a possible move
@@ -121,7 +121,7 @@ public class GameInterface {
             for(int[][] path : possiblePath) {
 
                 int[] lastCoord = path[path.length - 1];
-                Set<int[]> newNeighbors = _board.getNeighbors(lastCoord[0], lastCoord[1]);
+                int[][] newNeighbors = _board.getNeighbors(lastCoord[0], lastCoord[1]);
                 for(int[] neighbor : newNeighbors) {
                     // Check if the neighbor a boat
                     if (neighbor[0] == x && neighbor[1] == y) {

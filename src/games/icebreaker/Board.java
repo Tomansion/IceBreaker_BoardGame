@@ -1,6 +1,6 @@
 package games.icebreaker;
 
-import java.util.Set;
+import java.util.Arrays;
 
 public class Board {
     private boolean[][] _board;
@@ -30,7 +30,7 @@ public class Board {
 
     private boolean outOfBound(int x, int y){
         return x > 2 * _size - 2 || y > 2 * _size - 2 || x < 0 || y < 0 ||
-                (x >= _size && ((y <= x - _size) || (y >= 3 * _size - x - 2)));
+                y > 4 + x || y < x - 4;
     }
 
     private void resetBoard() {
@@ -40,6 +40,10 @@ public class Board {
                     _board[y][x] = true;
                 }
             }
+        }
+        int[][] boats = {{0, 0}, {4, 0}, {8, 4}, {8, 8}, {4, 8}, {0, 4}};
+        for(int[] boat : boats) {
+            _board[boat[1]][boat[0]] = false;
         }
     }
 
@@ -51,86 +55,9 @@ public class Board {
                 }
             }
         }
-        int[][] boats = {{0, 0}, {2 * (_size - 1), _size - 1}, {0, 2 * (_size - 1)}, {_size - 1, 0}, {0, _size - 1}, {_size - 1, 2 * (_size - 1)}};
-        for(int[] boat : boats) {
-            _board[boat[1]][boat[0]] = false;
-        }
     }
 
-    private int[][] getOffsets(int x, int y) {
-        //
-        //   Top (y < _size - 1) :
-        //       [-1,-1]  [0,-1]
-        //                 -
-        //  [-1, 0]  [TARGET]  [1, 0]
-        //          -
-        //       [0, 1]  [1, 1]
-        //
-        //
-        //   Mid (y == _size - 1) :
-        //       [-1,-1]  [0,-1]
-        //                -
-        //  [-1, 0]  [TARGET]  [1, 0]
-        //                -
-        //       [-1, 1]  [0, 1]
-        //
-        //
-        //   Bot (y > _size - 1):
-        //       [0,-1]  [1,-1]
-        //          -
-        //  [-1, 0]  [TARGET]  [1, 0]
-        //                -
-        //       [-1, 1]  [0, 1]
-        //
-
-        if (outOfBound(x, y)) {
-            System.out.println("Coordinates out of bound");
-            return null;
-        }
-
-        if (y <  _size - 1) {
-            return new int[][] {
-                {-1, -1},
-                {0, -1},
-                {1, 0},
-                {1, 1},
-                {0, 1},
-                {-1,0},
-            };
-        } else if (y == _size - 1) {
-            return new int[][] {
-                {-1, -1},
-                {0, -1},
-                {1, 0},
-                {0, 1},
-                {-1, 1},
-                {-1, 0},
-            };
-        } else {
-            return new int[][] {
-                {0, -1},
-                {1, -1},
-                {1, 0},
-                {0, 1},
-                {-1, 1},
-                {-1, 0},
-            };
-        }
+    public int[][] getNeighbors(int x, int y) {
+        return Arrays.stream(new int[][]{{0, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 0}, {-1, -1}}).map(o -> { return new int[] {x + o[0], y + o[1]}; }).toArray(int[][]::new);
     };
-
-    public Set<int[]> getNeighbors(int x, int y) {
-        Set<int[]> neighbors = new java.util.HashSet<int[]>();
-
-        int[][] offsets = getOffsets(x, y);
-        for(int[] offset : offsets) {
-            int neighborX = x + offset[0];
-            int neighborY = y + offset[1];
-
-            if(!outOfBound(neighborX, neighborY)) {
-                neighbors.add(new int[] {neighborX, neighborY});
-            }
-        }
-        return neighbors;
-    }
-
 }
