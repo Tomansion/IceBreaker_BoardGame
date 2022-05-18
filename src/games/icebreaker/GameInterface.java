@@ -1,5 +1,6 @@
 package games.icebreaker;
 
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -10,10 +11,28 @@ public class GameInterface {
 
     public static int SIZE = 5;
 
-    public final Player _red = new Player(redPlayer, SIZE);
-    public final Player _black = new Player(blackPlayer, SIZE);
-    private final Board _board = new Board(SIZE);
-    private String _currentPlayer = redPlayer;
+    public Player _red;
+    public Player _black;
+    private Board _board;
+    private String _currentPlayer;
+
+    public GameInterface() {
+        _red = new Player(redPlayer, SIZE);
+        _black = new Player(blackPlayer, SIZE);
+        _board = new Board(SIZE);
+        _currentPlayer = redPlayer;
+    }
+
+    public GameInterface(GameInterface game){
+        _red = new Player(game._red);
+        _black = new Player(game._black);
+        _board = new Board(game._board);
+        _currentPlayer = game._currentPlayer;
+    }
+
+    public String getCurrentPlayer() {
+        return _currentPlayer;
+    }
 
     public boolean move(String player, String move) {
         String[] moveArray = move.split("-");
@@ -171,5 +190,9 @@ public class GameInterface {
     }
     private boolean _coordInPath(int[] coord,Set<int[]> path) {
        return this._coordInPath(coord, path.toArray(new int[path.size()][]));
+    }
+
+    float getCurrentScore() {
+        return _board.getScore(Objects.equals(_currentPlayer, "RED") ? _red._boats : _black._boats, Objects.equals(_currentPlayer, "RED") ? _black._boats : _red._boats)[0];
     }
 }

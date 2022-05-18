@@ -6,6 +6,12 @@ public class Player {
     public int[][] _boats;
     public int _score;
 
+    // copy constructor
+    public Player(Player player) {
+        _score = player._score;
+        _boats = player._boats;
+    }
+
     public Player(String name, int size) {
         _score = 0;
         if (Objects.equals(name, GameInterface.blackPlayer)){
