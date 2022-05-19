@@ -1,5 +1,6 @@
 package games.icebreaker;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Board {
@@ -14,7 +15,9 @@ public class Board {
 
     public Board(Board board) {
         _size = board._size;
-        _board = board._board;
+        _board = new boolean[2 * _size - 1][2 * _size - 1];
+        for(int i = 0; i < 2 * _size - 1; i++)
+            if (2 * _size - 1 >= 0) System.arraycopy(board._board[i], 0, _board[i], 0, 2 * _size - 1);
     }
 
     public boolean get(int x, int y) {
@@ -23,6 +26,10 @@ public class Board {
             return false;
         }
         return _board[y][x];
+    }
+
+    public boolean get(int[] pos) {
+        return get(pos[0], pos[1]);
     }
 
     public void set(int x, int y, boolean value) {
@@ -56,12 +63,11 @@ public class Board {
     }
 
     // For current board state, returns the heuristics for both players boats
-    public float[] getScore(int[][] allyBoats, int[][] enemyBoats) {
+    public float getScore(int[][] allyBoats, int[][] enemyBoats) {
         float allyScore = 0;
-        float enemyScore = 0;
 
-        for(int x = 0; x < 2 * _size - 1; x++) {
-            for(int y = 0; y < 2 * _size - 1; y++) {
+        for(int x = 0; x < 3 * _size - 1; x++) {
+            for(int y = 0; y < 3 * _size - 1; y++) {
                 if(!outOfBound(x, y)) {
                     // Check if the contains ice
                     if(_board[y][x]) {
@@ -77,17 +83,18 @@ public class Board {
                                 enemyFound += Arrays.stream(enemyBoats).anyMatch(b -> b[0] == neighbor[0] && b[1] == neighbor[1]) ? 1 : 0;
                             }
 
-                            allyScore += allyFound / (allyFound + enemyFound);
-                            enemyScore += enemyFound / (allyFound + enemyFound);
-
-                            if (allyFound == 0 || enemyFound == 0) break;
+                            if (allyFound > 0 || enemyFound > 0) {
+                                allyScore += i * allyFound / (2 * allyFound + enemyFound);
+                                break;
+                            } else if (i == 3) {
+                                allyScore = 0;
+                            }
                         }
                     }
                 }
             }
         }
-
-        return new float[] {allyScore, enemyScore};
+        return allyScore;
     }
 
     // Returns the offset of the neighbors of the given cell and radius

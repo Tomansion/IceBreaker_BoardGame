@@ -34,15 +34,10 @@ public class GameInterface {
         return _currentPlayer;
     }
 
-    public boolean move(String player, String move) {
+    public boolean move(String move) {
         String[] moveArray = move.split("-");
         int[] origin = stringToCoord(moveArray[0]);
         int[] dest = stringToCoord(moveArray[1]);
-
-        if (!player.equals(_currentPlayer)) {
-            System.out.println("It is not " + player + "'s turn.");
-            return false;
-        }
 
         if(_board.get(dest[0], dest[1])) {
             if (_currentPlayer.equals(redPlayer)) _red._score++;
@@ -97,9 +92,9 @@ public class GameInterface {
 
         Set<String> moves = new java.util.HashSet<String>();
 
-        for(int[] boat : boats) {
+        for (int[] boat : boats) {
             Set<int[]> possibleMoves = this._getPossibleMoves(boat[0], boat[1]);
-            for(int[] move : possibleMoves) {
+            for (int[] move : possibleMoves) {
                 moves.add(coordToString(boat[0], boat[1]) + '-' + coordToString(move[0], move[1]));
             }
         }
@@ -192,7 +187,27 @@ public class GameInterface {
        return this._coordInPath(coord, path.toArray(new int[path.size()][]));
     }
 
-    float getCurrentScore() {
-        return _board.getScore(Objects.equals(_currentPlayer, "RED") ? _red._boats : _black._boats, Objects.equals(_currentPlayer, "RED") ? _black._boats : _red._boats)[0];
+    public int getCurrentAllyScore(String color) {
+        return Objects.equals(color, "red") ? _red._score : _black._score;
+    }
+
+    public int getCurrentEnemyScore(String color) {
+        return Objects.equals(color, "red") ? _black._score : _red._score;
+    }
+
+    boolean isFinished() {
+        return _red._score == 23 || _black._score == 23;
+    }
+
+    float getCurrentScore(String color) {
+        Set<String> moves = this.possibleMoves(color);
+        float counter = 0;
+        for (String move : moves) {
+            String pos = move.split("-")[1];
+            if(!_board.get(stringToCoord(pos))) {
+                counter++;
+            }
+        }
+        return -0.9f * counter + _board.getScore(Objects.equals(color, "RED") ? _red._boats : _black._boats, Objects.equals(color, "RED") ? _black._boats : _red._boats);
     }
 }
