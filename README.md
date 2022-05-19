@@ -1,4 +1,4 @@
-# Devoir 2022
+# Devoir 2022 - APP5 Info - 2021:2022 - Tom Mansion et Léandre Becq
 
 Structure de départ pour le devoir sur le jeu *Brise-glace*.
 
@@ -28,8 +28,6 @@ L'algorythme utilisé pour déterminer les coups possibles est le suivant :
   - Tous les chemins sont exploré pour avoir la liste des choix possible.
 
 ## Partie 3
-
-
 
 Nous avons gardé la structure de base, pour lancer notre IA :
 
